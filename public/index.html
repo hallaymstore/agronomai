@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Agronom AI | Landing Page</title>
+    <title>Agronom AI | O'simliklar uchun AI platforma</title>
     <meta
       name="description"
-      content="Agronom AI o'simlik parvarishi uchun sun'iy intellekt platformasi. Login, register va alohida AI chat sahifasi bilan."
+      content="Agronom AI yordamida o'simlik rasmini yuboring, savol bering va AI chatbotdan tezkor tavsiya oling."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,15 +16,13 @@
     />
     <style>
       :root {
-        --bg: #f5f4eb;
-        --surface: rgba(255, 255, 255, 0.84);
         --ink: #143028;
-        --muted: #5d756e;
+        --muted: #5a746d;
         --line: rgba(20, 48, 40, 0.09);
         --primary: #2f8f5b;
-        --primary-deep: #1f6841;
-        --accent: #efaa58;
-        --shadow: 0 24px 60px rgba(19, 43, 35, 0.12);
+        --accent: #efa653;
+        --surface: rgba(255, 255, 255, 0.86);
+        --shadow: 0 24px 60px rgba(18, 43, 35, 0.12);
       }
 
       * {
@@ -37,8 +35,8 @@
         color: var(--ink);
         background:
           radial-gradient(circle at top left, rgba(47, 143, 91, 0.16), transparent 24%),
-          radial-gradient(circle at bottom right, rgba(239, 170, 88, 0.14), transparent 28%),
-          linear-gradient(180deg, #f7f5ed, #eef4ea 56%, #f7f5ed);
+          radial-gradient(circle at bottom right, rgba(239, 166, 83, 0.15), transparent 28%),
+          linear-gradient(180deg, #f7f5ed, #eef4ea 58%, #f8f6ef);
       }
 
       a {
@@ -46,8 +44,13 @@
         text-decoration: none;
       }
 
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
       .shell {
-        width: min(calc(100% - 24px), 1160px);
+        width: min(calc(100% - 22px), 1160px);
         margin: 0 auto;
       }
 
@@ -56,15 +59,16 @@
         top: 0;
         z-index: 20;
         backdrop-filter: blur(16px);
-        background: rgba(245, 244, 235, 0.82);
+        background: rgba(247, 245, 237, 0.82);
         border-bottom: 1px solid rgba(20, 48, 40, 0.06);
       }
 
       .nav,
       .hero-grid,
+      .gallery-grid,
       .feature-grid,
-      .double-grid,
-      .stat-grid {
+      .story-grid,
+      .cta-box {
         display: grid;
         gap: 18px;
       }
@@ -72,7 +76,7 @@
       .nav {
         grid-template-columns: auto 1fr auto;
         align-items: center;
-        padding: 18px 0;
+        padding: 16px 0;
       }
 
       .brand {
@@ -91,15 +95,16 @@
         place-items: center;
         color: #fff;
         background: linear-gradient(135deg, var(--primary), var(--accent));
-        box-shadow: 0 14px 28px rgba(47, 143, 91, 0.24);
+        box-shadow: 0 14px 30px rgba(47, 143, 91, 0.24);
       }
 
       .nav-links,
-      .cta-row,
+      .action-row,
       .chip-row {
         display: flex;
         gap: 12px;
         flex-wrap: wrap;
+        align-items: center;
       }
 
       .nav-links {
@@ -118,13 +123,13 @@
 
       .btn-primary {
         color: #fff;
-        background: linear-gradient(135deg, var(--primary), #3da06b);
+        background: linear-gradient(135deg, var(--primary), #3ca16b);
         box-shadow: 0 16px 34px rgba(47, 143, 91, 0.22);
       }
 
       .btn-secondary {
         color: var(--ink);
-        background: rgba(255, 255, 255, 0.78);
+        background: rgba(255, 255, 255, 0.8);
         border: 1px solid var(--line);
       }
 
@@ -133,8 +138,12 @@
       }
 
       .hero-grid,
-      .double-grid {
+      .story-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1.15fr 0.85fr;
       }
 
       .feature-grid {
@@ -143,15 +152,11 @@
 
       .card {
         background: var(--surface);
-        border: 1px solid rgba(255, 255, 255, 0.56);
+        border: 1px solid rgba(255, 255, 255, 0.58);
         box-shadow: var(--shadow);
         border-radius: 30px;
-        backdrop-filter: blur(16px);
-        padding: 28px;
-      }
-
-      .hero-copy {
-        padding: 36px;
+        padding: 26px;
+        backdrop-filter: blur(14px);
       }
 
       .eyebrow,
@@ -180,101 +185,148 @@
 
       p {
         color: var(--muted);
-        line-height: 1.7;
+        line-height: 1.72;
       }
 
-      .hero-visual {
-        min-height: 420px;
-        position: relative;
-        overflow: hidden;
-        background:
-          linear-gradient(180deg, rgba(20, 48, 40, 0.08), rgba(20, 48, 40, 0.22)),
-          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='560' viewBox='0 0 800 560'%3E%3Crect width='800' height='560' fill='%23deedd9'/%3E%3Cpath d='M75 470c80-153 206-245 373-275 125-22 228 25 321 130-113 24-186 79-241 145H75Z' fill='%2397cb91'/%3E%3Cpath d='M238 173c49 13 84 52 104 119 13 44 47 79 102 101-86 28-147 6-187-67-18-34-24-83-19-153Z' fill='%234fa966'/%3E%3Ccircle cx='604' cy='121' r='60' fill='%23efaa58'/%3E%3C/svg%3E")
-            center/cover no-repeat;
+      .hero-copy {
+        padding: 34px;
       }
 
-      .floating {
-        position: absolute;
-        right: 18px;
-        bottom: 18px;
-        max-width: 260px;
-        padding: 18px;
-        border-radius: 24px;
-        background: rgba(20, 48, 40, 0.86);
-        color: #fff;
+      .hero-copy p {
+        font-size: 1.03rem;
       }
 
-      .floating p {
-        color: rgba(255, 255, 255, 0.8);
-      }
-
-      .stat-grid {
+      .hero-stats {
+        display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
         margin-top: 22px;
       }
 
-      .stat,
-      .mini-card {
-        padding: 18px;
+      .stat {
+        padding: 16px;
         border-radius: 20px;
-        background: rgba(255, 255, 255, 0.8);
+        background: rgba(255, 255, 255, 0.78);
         border: 1px solid var(--line);
       }
 
       .stat strong {
         display: block;
         font-family: "Space Grotesk", sans-serif;
-        font-size: 1.5rem;
+        font-size: 1.45rem;
       }
 
-      .contact-form {
+      .photo-stack,
+      .photo-column {
         display: grid;
-        gap: 14px;
-        margin-top: 18px;
+        gap: 16px;
       }
 
-      .field,
-      .textarea {
+      .photo-stack {
+        grid-template-columns: 1fr;
+      }
+
+      .photo-column {
+        grid-template-rows: 1fr 1fr;
+      }
+
+      .photo-card {
+        min-height: 210px;
+        border-radius: 28px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: var(--shadow);
+      }
+
+      .photo-card.large {
+        min-height: 436px;
+      }
+
+      .photo-card img {
         width: 100%;
-        border-radius: 16px;
-        border: 1px solid var(--line);
-        background: rgba(255, 255, 255, 0.84);
-        padding: 14px 16px;
-        font: inherit;
-        color: var(--ink);
+        height: 100%;
+        object-fit: cover;
       }
 
-      .textarea {
-        min-height: 140px;
-        resize: vertical;
-      }
-
-      .status {
-        margin-top: 16px;
+      .photo-label {
+        position: absolute;
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
         padding: 14px 16px;
         border-radius: 18px;
-        background: rgba(20, 48, 40, 0.05);
+        background: rgba(20, 48, 40, 0.7);
+        color: #fff;
+      }
+
+      .feature-card {
+        overflow: hidden;
+        padding: 0;
+      }
+
+      .feature-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .feature-content {
+        padding: 22px;
+      }
+
+      .story-card {
+        padding: 0;
+        overflow: hidden;
+      }
+
+      .story-card img {
+        width: 100%;
+        height: 260px;
+        object-fit: cover;
+      }
+
+      .story-content {
+        padding: 22px;
+      }
+
+      .cta-box {
+        grid-template-columns: 1.1fr 0.9fr;
+        align-items: stretch;
+      }
+
+      .cta-visual {
+        border-radius: 28px;
+        overflow: hidden;
+        min-height: 320px;
+      }
+
+      .cta-visual img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
 
       footer {
-        padding: 28px 0 42px;
+        padding: 28px 0 40px;
         color: var(--muted);
       }
 
       .footer {
         display: flex;
-        flex-wrap: wrap;
         justify-content: space-between;
-        gap: 12px;
-        padding-top: 18px;
+        gap: 14px;
+        flex-wrap: wrap;
         border-top: 1px solid rgba(20, 48, 40, 0.08);
+        padding-top: 18px;
       }
 
       @media (max-width: 980px) {
         .hero-grid,
+        .gallery-grid,
         .feature-grid,
-        .double-grid,
-        .stat-grid {
+        .story-grid,
+        .cta-box,
+        .hero-stats {
           grid-template-columns: 1fr;
         }
 
@@ -285,13 +337,26 @@
         .nav-links {
           display: none;
         }
+
+        .photo-card.large {
+          min-height: 260px;
+        }
       }
 
       @media (max-width: 640px) {
-        .hero-copy,
-        .card {
+        .card,
+        .hero-copy {
           padding: 22px;
           border-radius: 24px;
+        }
+
+        .btn {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .action-row {
+          width: 100%;
         }
       }
     </style>
@@ -299,7 +364,7 @@
   <body>
     <header class="topbar">
       <div class="shell nav">
-        <a class="brand" href="/">
+        <a class="brand" href="/index.html">
           <span class="brand-mark">AI</span>
           <span>Agronom AI</span>
         </a>
@@ -308,9 +373,9 @@
           <a href="#workflow">Jarayon</a>
           <a href="/guide.html">Qo'llanma</a>
         </nav>
-        <div class="cta-row">
+        <div class="action-row">
           <a class="btn btn-secondary" href="/login.html">Login</a>
-          <a class="btn btn-primary" href="/register.html">Register</a>
+          <a class="btn btn-primary" id="mainCta" href="/register.html">Boshlash</a>
         </div>
       </div>
     </header>
@@ -319,92 +384,156 @@
       <section>
         <div class="shell hero-grid">
           <article class="card hero-copy">
-            <div class="eyebrow">AI agronom yordamchi • Login + Chat workflow</div>
-            <h1>O'simlik parvarishi uchun tezkor AI platforma.</h1>
+            <div class="eyebrow">Rasm yuboring • Savol bering • AI javob oling</div>
+            <h1>O'simlik muammosini suratga oling va tezkor tavsiya oling.</h1>
             <p>
-              Agronom AI yordamida foydalanuvchi ro'yxatdan o'tadi, tizimga kiradi va
-              alohida chat sahifasida matn yoki rasm yuborib o'simlik holatini tahlil qiladi.
+              Agronom AI bog', issiqxona, ko'chat va uy gullari uchun mo'ljallangan.
+              Siz chat oynasida savol yozasiz, rasm biriktirasiz, AI esa parvarish bo'yicha
+              aniq va amaliy javob qaytaradi.
             </p>
-            <div class="cta-row" style="margin-top: 18px">
-              <a class="btn btn-primary" id="primaryCta" href="/register.html">Boshlash</a>
-              <a class="btn btn-secondary" href="/chat.html">AI Chat</a>
+            <div class="action-row" style="margin-top: 18px">
+              <a class="btn btn-primary" href="/chat.html">AI Chatni ochish</a>
+              <a class="btn btn-secondary" href="/register.html">Register</a>
               <a class="btn btn-secondary" href="/guide.html">Qo'llanma</a>
             </div>
-            <div class="stat-grid">
+            <div class="hero-stats">
               <div class="stat">
-                <strong>Vision</strong>
-                <span>Rasm asosida AI tavsiya</span>
+                <strong>Chat</strong>
+                <span>Oddiy va tez interfeys</span>
               </div>
               <div class="stat">
-                <strong>Auth</strong>
-                <span>Register va login oqimi</span>
+                <strong>Kamera</strong>
+                <span>Mobil uchun orqa kamera</span>
               </div>
               <div class="stat">
-                <strong>History</strong>
-                <span>Foydalanuvchi bo'yicha saqlash</span>
+                <strong>Vision AI</strong>
+                <span>Rasmni ko'rib maslahat beradi</span>
               </div>
             </div>
           </article>
 
-          <aside class="card hero-visual">
-            <div class="floating">
-              <strong>Landing + Chat arxitekturasi</strong>
-              <p>
-                Landing page marketing va tanishtirish uchun, chat sahifasi esa real AI
-                ishlashi uchun alohida ajratildi.
-              </p>
+          <aside class="gallery-grid">
+            <div class="photo-stack">
+              <div class="photo-card large">
+                <img
+                  src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1200&q=80"
+                  alt="Yashil issiqxona va o'simliklar"
+                />
+                <div class="photo-label">Issiqxona va dala uchun ham qulay ishlaydi</div>
+              </div>
+            </div>
+            <div class="photo-column">
+              <div class="photo-card">
+                <img
+                  src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=900&q=80"
+                  alt="Barglarga yaqin olingan o'simlik rasmi"
+                />
+                <div class="photo-label">Bargdagi muammo joyini yaqin ko'rsating</div>
+              </div>
+              <div class="photo-card">
+                <img
+                  src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=900&q=80"
+                  alt="Ekinda ishlayotgan fermer"
+                />
+                <div class="photo-label">Fermer va bog'bon uchun tezkor yordamchi</div>
+              </div>
             </div>
           </aside>
         </div>
       </section>
 
       <section id="features">
-        <div class="shell">
-          <div class="feature-grid">
-            <article class="card">
-              <h3>Alohida AI chat</h3>
-              <p>Chat sahifasi login qilingan foydalanuvchi uchun ochiladi va tarixni o'ziga bog'laydi.</p>
-            </article>
-            <article class="card">
-              <h3>Rasm + matn analizi</h3>
-              <p>Kamera yoki fayl orqali yuborilgan rasm Groq multimodal API yordamida ko'rib chiqiladi.</p>
-            </article>
-            <article class="card">
-              <h3>Mobile responsive</h3>
-              <p>Landing, auth va chat sahifalari telefon ekranlarida ham qulay ishlashi uchun moslangan.</p>
-            </article>
-          </div>
+        <div class="shell feature-grid">
+          <article class="card feature-card">
+            <img
+              src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1000&q=80"
+              alt="Sog'lom ko'rinishdagi o'simlik"
+            />
+            <div class="feature-content">
+              <h3>Rasmli tahlil</h3>
+              <p>Rasm va savol birga yuborilganda AI ancha foydali va kontekstli javob beradi.</p>
+            </div>
+          </article>
+          <article class="card feature-card">
+            <img
+              src="https://images.unsplash.com/photo-1492496913980-501348b61469?auto=format&fit=crop&w=1000&q=80"
+              alt="Namlik va barg kuzatuvi"
+            />
+            <div class="feature-content">
+              <h3>Parvarish bo'yicha tavsiya</h3>
+              <p>Sug'orish, yorug'lik, stress, zararkunanda va umumiy parvarish bo'yicha tavsiya olasiz.</p>
+            </div>
+          </article>
+          <article class="card feature-card">
+            <img
+              src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=1000&q=80"
+              alt="Smartfon bilan o'simlikni kuzatish"
+            />
+            <div class="feature-content">
+              <h3>Mobil uchun mos</h3>
+              <p>Telefon ekranida qulay, chat oynasi sodda, kameradan rasm olish esa tez ishlaydi.</p>
+            </div>
+          </article>
         </div>
       </section>
 
       <section id="workflow">
-        <div class="shell double-grid">
-          <article class="card">
-            <h2>Foydalanish jarayoni</h2>
-            <div class="chip-row" style="margin-top: 16px">
-              <span class="chip">1. Register</span>
-              <span class="chip">2. Login</span>
-              <span class="chip">3. Chat</span>
-              <span class="chip">4. Diagnostika</span>
+        <div class="shell story-grid">
+          <article class="card story-card">
+            <img
+              src="https://images.unsplash.com/photo-1461354464878-ad92f492a5a0?auto=format&fit=crop&w=1200&q=80"
+              alt="O'simlikni kuzatayotgan foydalanuvchi"
+            />
+            <div class="story-content">
+              <h2>Jarayon juda oddiy</h2>
+              <div class="chip-row" style="margin: 16px 0">
+                <span class="chip">1. Login</span>
+                <span class="chip">2. Kamera</span>
+                <span class="chip">3. Savol</span>
+                <span class="chip">4. Javob</span>
+              </div>
+              <p>
+                Chat sahifasiga kirasiz, rasm olasiz yoki yuklaysiz, keyin savolingizni yozasiz.
+                Agronom AI rasmga qarab va savolingizga tayangan holda javob beradi.
+              </p>
             </div>
-            <p style="margin-top: 18px">
-              Foydalanuvchi akkaunt ochadi, tizimga kiradi va `chat.html` sahifasida savol
-              yoki rasm yuboradi. Server foydalanuvchini session cookie orqali tanib,
-              tarixni xavfsiz saqlaydi.
-            </p>
           </article>
 
-          <article class="card">
-            <h2>Loyiha uchun bog'lanish</h2>
-            <p>Issiqxona, ferma yoki servis uchun moslashtirish kerak bo'lsa, xabar qoldiring.</p>
-            <form id="contactForm" class="contact-form">
-              <input id="contactName" class="field" placeholder="Ismingiz" />
-              <input id="contactPhone" class="field" placeholder="Telefon yoki Telegram" />
-              <textarea id="contactMessage" class="textarea" placeholder="Qanday ehtiyojingiz bor?"></textarea>
-              <button class="btn btn-primary" type="submit">Xabar yuborish</button>
-            </form>
-            <div id="statusBox" class="status">Tizim holati tekshirilmoqda...</div>
+          <article class="card story-card">
+            <img
+              src="https://images.unsplash.com/photo-1463123081488-789f998ac9c4?auto=format&fit=crop&w=1200&q=80"
+              alt="Yaproq yuzasidagi o'zgarishlar"
+            />
+            <div class="story-content">
+              <h2>Qaysi holatlarda foydali?</h2>
+              <p>
+                Barg sarg'ayishi, dog', oqarish, qurish, hasharot izi, so'lish yoki noto'g'ri
+                sug'orish belgilarida dastlabki AI bahosi juda qulay bo'ladi.
+              </p>
+            </div>
           </article>
+        </div>
+      </section>
+
+      <section>
+        <div class="shell cta-box">
+          <article class="card">
+            <h2>Hozir sinab ko'ring</h2>
+            <p>
+              Hisobingiz bo'lsa chatga o'ting. Yangi foydalanuvchi bo'lsangiz, tezda register
+              qilib AI chatbotdan foydalanishni boshlashingiz mumkin.
+            </p>
+            <div class="action-row" style="margin-top: 18px">
+              <a class="btn btn-primary" id="ctaButton" href="/register.html">Register qilish</a>
+              <a class="btn btn-secondary" href="/login.html">Login</a>
+            </div>
+          </article>
+          <div class="cta-visual">
+            <img
+              src="https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?auto=format&fit=crop&w=1400&q=80"
+              alt="O'simlik va texnologiya uyg'unligi"
+            />
+          </div>
         </div>
       </section>
     </main>
@@ -412,79 +541,27 @@
     <footer>
       <div class="shell footer">
         <div>Agronom AI landing page</div>
-        <div>Node.js • Groq API • MongoDB ready</div>
+        <div>Login • Chatbot • Mobile camera support</div>
       </div>
     </footer>
 
     <script>
-      const statusBox = document.getElementById("statusBox");
-      const contactForm = document.getElementById("contactForm");
-      const primaryCta = document.getElementById("primaryCta");
-
-      function setStatus(text, tone = "neutral") {
-        const colors = {
-          neutral: "rgba(20, 48, 40, 0.05)",
-          success: "rgba(79, 186, 111, 0.14)",
-          danger: "rgba(217, 100, 74, 0.14)",
-        };
-        statusBox.textContent = text;
-        statusBox.style.background = colors[tone] || colors.neutral;
-      }
-
-      async function loadHealth() {
+      async function loadSession() {
         try {
-          const [healthResponse, meResponse] = await Promise.all([
-            fetch("/api/health"),
-            fetch("/api/me"),
-          ]);
-          const health = await healthResponse.json();
-          const me = await meResponse.json();
-          setStatus(
-            `Groq: ${health.groqConfigured ? "ulangan" : "kalit kiritilmagan"} | MongoDB: ${
-              health.mongoEnabled ? "aktiv" : "fallback"
-            }`,
-            "neutral"
-          );
-          if (me.authenticated) {
-            primaryCta.textContent = "Chatga o'tish";
-            primaryCta.href = "/chat.html";
-          }
-        } catch (error) {
-          setStatus("Server holatini olib bo'lmadi.", "danger");
-        }
-      }
-
-      contactForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
-        const payload = {
-          name: document.getElementById("contactName").value.trim(),
-          phone: document.getElementById("contactPhone").value.trim(),
-          message: document.getElementById("contactMessage").value.trim(),
-        };
-
-        if (!payload.name || !payload.phone || !payload.message) {
-          setStatus("Barcha maydonlarni to'ldiring.", "danger");
-          return;
-        }
-
-        try {
-          const response = await fetch("/api/contact", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-          });
+          const response = await fetch("/api/me");
           const data = await response.json();
-          if (!response.ok || !data.ok) {
-            throw new Error(data.error || "Xabar yuborilmadi.");
+          if (data.authenticated) {
+            const cta = document.getElementById("mainCta");
+            const bottom = document.getElementById("ctaButton");
+            cta.textContent = "Chatga o'tish";
+            cta.href = "/chat.html";
+            bottom.textContent = "AI Chatni ochish";
+            bottom.href = "/chat.html";
           }
-          contactForm.reset();
-          setStatus(data.message, "success");
-        } catch (error) {
-          setStatus(error.message || "Xatolik yuz berdi.", "danger");
-        }
-      });
+        } catch (error) {}
+      }
 
-      loadHealth();
+      loadSession();
     </script>
   </body>
 </html>

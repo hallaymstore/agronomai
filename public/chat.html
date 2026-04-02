@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Agronom AI | Chat</title>
+    <title>Agronom AI | Chatbot</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,38 +13,61 @@
     <style>
       :root {
         --ink: #143028;
-        --muted: #5a746d;
+        --muted: #5b746d;
         --line: rgba(20, 48, 40, 0.09);
         --primary: #2f8f5b;
-        --accent: #efaa58;
-        --surface: rgba(255, 255, 255, 0.86);
+        --accent: #efa653;
+        --surface: rgba(255, 255, 255, 0.88);
       }
-      * { box-sizing: border-box; }
+
+      * {
+        box-sizing: border-box;
+      }
+
       body {
         margin: 0;
         font-family: "IBM Plex Sans", sans-serif;
         color: var(--ink);
         background:
           radial-gradient(circle at top left, rgba(47, 143, 91, 0.16), transparent 24%),
-          radial-gradient(circle at bottom right, rgba(239, 170, 88, 0.14), transparent 28%),
+          radial-gradient(circle at bottom right, rgba(239, 166, 83, 0.14), transparent 28%),
           linear-gradient(180deg, #f7f5ed, #eef4ea);
       }
-      a { color: inherit; text-decoration: none; }
-      .shell { width: min(calc(100% - 20px), 1220px); margin: 0 auto; }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img,
+      video,
+      canvas {
+        display: block;
+        max-width: 100%;
+      }
+
+      .shell {
+        width: min(calc(100% - 18px), 960px);
+        margin: 0 auto;
+      }
+
       .topbar {
         position: sticky;
         top: 0;
-        z-index: 30;
+        z-index: 20;
         backdrop-filter: blur(16px);
-        background: rgba(247, 245, 237, 0.82);
-        border-bottom: 1px solid rgba(20,48,40,0.06);
+        background: rgba(247, 245, 237, 0.84);
+        border-bottom: 1px solid rgba(20, 48, 40, 0.06);
       }
-      .nav, .layout, .side-grid, .result-grid { display: grid; gap: 18px; }
+
       .nav {
+        display: grid;
         grid-template-columns: auto 1fr auto;
         align-items: center;
+        gap: 14px;
         padding: 16px 0;
       }
+
       .brand {
         display: flex;
         align-items: center;
@@ -52,6 +75,7 @@
         font-family: "Space Grotesk", sans-serif;
         font-weight: 700;
       }
+
       .brand-mark {
         width: 42px;
         height: 42px;
@@ -61,23 +85,30 @@
         color: #fff;
         background: linear-gradient(135deg, var(--primary), var(--accent));
       }
-      .nav-links { display: flex; gap: 12px; justify-content: center; color: var(--muted); flex-wrap: wrap; }
-      .layout { grid-template-columns: 1.08fr 0.92fr; padding: 24px 0 30px; }
-      .card {
-        background: var(--surface);
-        border: 1px solid rgba(255,255,255,0.58);
-        border-radius: 28px;
-        padding: 22px;
-        box-shadow: 0 24px 60px rgba(20,43,35,0.12);
-        backdrop-filter: blur(16px);
+
+      .top-links,
+      .action-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
       }
-      h1, h2, h3, h4 {
-        margin: 0;
-        font-family: "Space Grotesk", sans-serif;
-        line-height: 1.04;
+
+      .top-links {
+        justify-content: center;
+        color: var(--muted);
       }
-      h1 { font-size: 2.2rem; }
-      p { color: var(--muted); line-height: 1.7; }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(20, 48, 40, 0.06);
+        font-size: 0.9rem;
+      }
+
       .btn {
         border: 0;
         border-radius: 999px;
@@ -86,101 +117,187 @@
         font-weight: 600;
         cursor: pointer;
       }
+
       .btn-primary {
         color: #fff;
-        background: linear-gradient(135deg, var(--primary), #3da06b);
+        background: linear-gradient(135deg, var(--primary), #3ea06d);
       }
+
       .btn-secondary {
-        background: rgba(255,255,255,0.8);
-        border: 1px solid var(--line);
         color: var(--ink);
-      }
-      .field, .textarea {
-        width: 100%;
-        border-radius: 16px;
-        border: 1px solid var(--line);
-        background: rgba(255,255,255,0.84);
-        padding: 14px 16px;
-        font: inherit;
-        color: var(--ink);
-      }
-      .textarea { min-height: 120px; resize: vertical; }
-      .chat-list {
-        margin-top: 18px;
-        display: grid;
-        gap: 12px;
-        max-height: 560px;
-        overflow: auto;
-        padding-right: 4px;
-      }
-      .bubble {
-        padding: 14px 16px;
-        border-radius: 20px;
-        background: rgba(255,255,255,0.82);
+        background: rgba(255, 255, 255, 0.8);
         border: 1px solid var(--line);
       }
-      .bubble.user {
-        background: rgba(47,143,91,0.12);
+
+      main {
+        padding: 22px 0 28px;
       }
-      .bubble small, .muted {
-        color: var(--muted);
-        font-size: 0.9rem;
+
+      .chat-shell {
+        background: var(--surface);
+        border: 1px solid rgba(255, 255, 255, 0.58);
+        box-shadow: 0 24px 60px rgba(18, 43, 35, 0.12);
+        border-radius: 30px;
+        backdrop-filter: blur(14px);
+        overflow: hidden;
       }
+
+      .chat-header,
       .composer {
-        display: grid;
-        gap: 12px;
-        margin-top: 18px;
+        padding: 20px;
       }
-      .row, .chip-row {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-        align-items: center;
+
+      .chat-header {
+        border-bottom: 1px solid rgba(20, 48, 40, 0.07);
       }
-      .chip {
-        display: inline-flex;
-        padding: 10px 14px;
-        border-radius: 999px;
-        background: rgba(20,48,40,0.06);
-        font-size: 0.9rem;
+
+      h1,
+      h2 {
+        margin: 0;
+        font-family: "Space Grotesk", sans-serif;
       }
-      .upload-label {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .preview {
-        width: 100%;
-        max-height: 220px;
-        object-fit: cover;
-        border-radius: 20px;
-        border: 1px solid var(--line);
-        display: none;
-      }
-      .status {
-        padding: 14px 16px;
-        border-radius: 16px;
-        background: rgba(20,48,40,0.05);
-      }
-      .side-grid, .result-grid {
-        grid-template-columns: 1fr;
-      }
-      .result-box, .history-item {
-        padding: 16px;
-        border-radius: 18px;
-        background: rgba(255,255,255,0.8);
-        border: 1px solid var(--line);
-      }
-      .list {
-        margin: 10px 0 0;
-        padding-left: 18px;
+
+      p {
         color: var(--muted);
         line-height: 1.7;
       }
-      @media (max-width: 980px) {
-        .layout { grid-template-columns: 1fr; }
-        .nav { grid-template-columns: auto auto; }
-        .nav-links { display: none; }
+
+      .chat-list {
+        min-height: 420px;
+        max-height: 58vh;
+        overflow: auto;
+        padding: 20px;
+        display: grid;
+        gap: 12px;
+      }
+
+      .bubble {
+        max-width: min(100%, 82%);
+        padding: 14px 16px;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.84);
+        border: 1px solid var(--line);
+      }
+
+      .bubble.user {
+        margin-left: auto;
+        background: rgba(47, 143, 91, 0.13);
+      }
+
+      .bubble strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .bubble-text {
+        white-space: pre-wrap;
+        line-height: 1.7;
+      }
+
+      .bubble small {
+        display: block;
+        margin-top: 8px;
+        color: var(--muted);
+      }
+
+      .bubble-attachment {
+        display: inline-flex;
+        margin-top: 10px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(20, 48, 40, 0.06);
+        font-size: 0.88rem;
+      }
+
+      .media-panel {
+        padding: 0 20px 10px;
+      }
+
+      .media-box {
+        display: none;
+        overflow: hidden;
+        border-radius: 24px;
+        border: 1px solid var(--line);
+        background: #102922;
+        position: relative;
+      }
+
+      .media-box.active {
+        display: block;
+      }
+
+      .media-box video,
+      .media-box img {
+        width: 100%;
+        height: min(42vh, 340px);
+        object-fit: cover;
+      }
+
+      .media-note {
+        position: absolute;
+        left: 14px;
+        right: 14px;
+        bottom: 14px;
+        padding: 12px 14px;
+        border-radius: 16px;
+        background: rgba(20, 48, 40, 0.7);
+        color: #fff;
+        font-size: 0.92rem;
+      }
+
+      .composer {
+        border-top: 1px solid rgba(20, 48, 40, 0.07);
+        display: grid;
+        gap: 12px;
+      }
+
+      .camera-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .field {
+        width: 100%;
+        min-height: 60px;
+        resize: vertical;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.84);
+        padding: 15px 16px;
+        font: inherit;
+        color: var(--ink);
+      }
+
+      .status {
+        padding: 14px 16px;
+        border-radius: 16px;
+        background: rgba(20, 48, 40, 0.05);
+      }
+
+      @media (max-width: 860px) {
+        .nav {
+          grid-template-columns: auto auto;
+        }
+
+        .top-links {
+          display: none;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .bubble {
+          max-width: 100%;
+        }
+
+        .btn {
+          width: 100%;
+        }
+
+        .camera-row,
+        .action-row {
+          width: 100%;
+        }
       }
     </style>
   </head>
@@ -191,126 +308,148 @@
           <span class="brand-mark">AI</span>
           <span>Agronom AI</span>
         </a>
-        <nav class="nav-links">
-          <a href="/guide.html">Qo'llanma</a>
+        <nav class="top-links">
           <a href="/index.html">Landing</a>
+          <a href="/guide.html">Qo'llanma</a>
         </nav>
-        <div class="row">
+        <div class="action-row">
           <span id="userBadge" class="chip">Foydalanuvchi</span>
           <button id="logoutBtn" class="btn btn-secondary" type="button">Logout</button>
         </div>
       </div>
     </header>
 
-    <main class="shell layout">
-      <section class="card">
-        <h1>Agronom AI chat</h1>
-        <p>Matn yoki rasm yuboring. Mobil qurilmada `Rasm yoki kamera` tugmasi kamerani ham ochishi mumkin.</p>
+    <main class="shell">
+      <section class="chat-shell">
+        <div class="chat-header">
+          <h1>Agronom AI Chatbot</h1>
+          <p>
+            Savol yozing, kerak bo'lsa rasm qo'shing. Mobil telefonda `Orqa kamera` tugmasi
+            orqali to'g'ridan-to'g'ri surat olib yuborishingiz mumkin.
+          </p>
+        </div>
 
         <div id="chatList" class="chat-list">
           <div class="bubble">
             <strong>Agronom AI</strong>
-            <div>Salom. O'simlik bo'yicha savolingizni yuboring yoki rasm qo'shing.</div>
+            <div class="bubble-text">Salom. O'simlik bo'yicha savolingizni yozing yoki rasm yuboring.</div>
+          </div>
+        </div>
+
+        <div class="media-panel">
+          <div id="cameraBox" class="media-box">
+            <video id="cameraFeed" autoplay playsinline muted></video>
+            <div class="media-note">Orqa kamera yoqildi. Barg yoki muammo joyini markazga oling.</div>
+          </div>
+          <div id="previewBox" class="media-box">
+            <img id="previewImage" alt="Tanlangan rasm preview" />
+            <div class="media-note">Rasm biriktirildi. Endi savolingiz bilan birga yuborishingiz mumkin.</div>
           </div>
         </div>
 
         <div class="composer">
-          <textarea id="chatMessage" class="textarea" placeholder="Masalan: Pomidor barglari sarg'ayib qolyapti, nima qilay?"></textarea>
-          <div class="row">
-            <label class="btn btn-secondary upload-label" for="imageInput">Rasm yoki kamera</label>
+          <div class="camera-row">
+            <button id="startCameraBtn" class="btn btn-secondary" type="button">Kamerani ochish</button>
+            <button id="captureBtn" class="btn btn-secondary" type="button">Suratga olish</button>
+            <label class="btn btn-secondary" for="cameraInput">Orqa kamera</label>
+            <label class="btn btn-secondary" for="galleryInput">Galereya</label>
             <button id="clearImageBtn" class="btn btn-secondary" type="button">Rasmni tozalash</button>
-            <button id="sendBtn" class="btn btn-primary" type="button">Chatga yuborish</button>
           </div>
-          <input id="imageInput" type="file" accept="image/*" capture="environment" hidden />
-          <img id="previewImage" class="preview" alt="Yuklangan rasm preview" />
+
+          <input id="cameraInput" type="file" accept="image/*" capture="environment" hidden />
+          <input id="galleryInput" type="file" accept="image/*" hidden />
+
+          <textarea
+            id="chatMessage"
+            class="field"
+            placeholder="Masalan: Pomidor barglari sarg'ayib qolyapti, nima qilish kerak?"
+          ></textarea>
+
+          <div class="action-row">
+            <button id="sendBtn" class="btn btn-primary" type="button">Yuborish</button>
+          </div>
+
           <div id="chatStatus" class="status">Chat tayyor.</div>
         </div>
       </section>
-
-      <aside class="side-grid">
-        <section class="card">
-          <h2>Tezkor diagnostika</h2>
-          <p>Chatdan tashqari alohida strukturalangan analiz ham olishingiz mumkin.</p>
-          <input id="plantType" class="field" placeholder="O'simlik turi" />
-          <input id="symptom" class="field" style="margin-top: 12px" placeholder="Belgi yoki muammo" />
-          <textarea id="diagnosisPrompt" class="textarea" style="margin-top: 12px" placeholder="Muammoni batafsil yozing"></textarea>
-          <div class="row" style="margin-top: 12px">
-            <button id="analyzeBtn" class="btn btn-primary" type="button">Diagnostika</button>
-            <button id="refreshHistoryBtn" class="btn btn-secondary" type="button">Tarix</button>
-          </div>
-          <div id="analysisStatus" class="status" style="margin-top: 14px">Diagnostika paneli tayyor.</div>
-        </section>
-
-        <section class="card">
-          <h3>So'nggi AI xulosa</h3>
-          <div class="result-grid" style="margin-top: 14px">
-            <div class="result-box">
-              <strong id="analysisSummary">Hozircha analiz yo'q.</strong>
-              <div id="analysisMeta" class="muted" style="margin-top: 8px">Natija shu yerda ko'rinadi.</div>
-            </div>
-            <div class="result-box">
-              <h4>Darhol qadamlar</h4>
-              <ul id="actionsList" class="list">
-                <li>Analiz boshlanmagan.</li>
-              </ul>
-            </div>
-            <div class="result-box">
-              <h4>Mumkin sabablar</h4>
-              <ul id="causesList" class="list">
-                <li>Analiz natijasidan keyin chiqadi.</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <section class="card">
-          <h3>Tekshiruv tarixi</h3>
-          <div id="historyList" style="display: grid; gap: 12px; margin-top: 14px">
-            <div class="history-item">Tarix yuklanmoqda...</div>
-          </div>
-        </section>
-      </aside>
     </main>
 
     <canvas id="hiddenCanvas" hidden></canvas>
 
     <script>
-      const state = { imageDataUrl: "" };
+      const state = {
+        user: null,
+        imageDataUrl: "",
+        stream: null,
+      };
+
       const chatList = document.getElementById("chatList");
       const chatStatus = document.getElementById("chatStatus");
-      const analysisStatus = document.getElementById("analysisStatus");
       const userBadge = document.getElementById("userBadge");
-      const imageInput = document.getElementById("imageInput");
+      const chatMessage = document.getElementById("chatMessage");
+      const previewBox = document.getElementById("previewBox");
       const previewImage = document.getElementById("previewImage");
+      const cameraBox = document.getElementById("cameraBox");
+      const cameraFeed = document.getElementById("cameraFeed");
       const hiddenCanvas = document.getElementById("hiddenCanvas");
 
-      function setStatus(target, text, tone = "neutral") {
+      function escapeHtml(value) {
+        return String(value || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+
+      function setStatus(text, tone = "neutral") {
         const colors = {
-          neutral: "rgba(20,48,40,0.05)",
-          success: "rgba(79,186,111,0.14)",
-          danger: "rgba(217,100,74,0.14)",
-          warn: "rgba(220,139,56,0.14)"
+          neutral: "rgba(20, 48, 40, 0.05)",
+          success: "rgba(79, 186, 111, 0.14)",
+          danger: "rgba(217, 100, 74, 0.14)",
+          warn: "rgba(220, 139, 56, 0.14)",
         };
-        target.textContent = text;
-        target.style.background = colors[tone] || colors.neutral;
+        chatStatus.textContent = text;
+        chatStatus.style.background = colors[tone] || colors.neutral;
       }
 
-      function addBubble(role, text, createdAt) {
-        const div = document.createElement("div");
-        div.className = `bubble ${role === "user" ? "user" : ""}`;
-        div.innerHTML = `
+      function showPreview(src) {
+        previewImage.src = src;
+        previewBox.classList.add("active");
+      }
+
+      function hidePreview() {
+        previewImage.src = "";
+        previewBox.classList.remove("active");
+      }
+
+      function showCamera() {
+        cameraBox.classList.add("active");
+      }
+
+      function hideCamera() {
+        cameraBox.classList.remove("active");
+      }
+
+      function stopCamera() {
+        if (!state.stream) {
+          return;
+        }
+        state.stream.getTracks().forEach((track) => track.stop());
+        state.stream = null;
+        cameraFeed.srcObject = null;
+        hideCamera();
+      }
+
+      function addBubble(role, text, createdAt, hasImage) {
+        const bubble = document.createElement("div");
+        bubble.className = `bubble ${role === "user" ? "user" : ""}`;
+        bubble.innerHTML = `
           <strong>${role === "user" ? "Siz" : "Agronom AI"}</strong>
-          <div style="margin-top: 8px; white-space: pre-wrap">${text}</div>
-          <small>${createdAt ? new Date(createdAt).toLocaleString("uz-UZ") : ""}</small>
+          <div class="bubble-text">${escapeHtml(text)}</div>
+          ${hasImage ? '<div class="bubble-attachment">Rasm biriktirilgan</div>' : ""}
+          ${createdAt ? `<small>${new Date(createdAt).toLocaleString("uz-UZ")}</small>` : ""}
         `;
-        chatList.appendChild(div);
+        chatList.appendChild(bubble);
         chatList.scrollTop = chatList.scrollHeight;
-      }
-
-      function renderList(targetId, items, fallback) {
-        const target = document.getElementById(targetId);
-        const safe = Array.isArray(items) && items.length ? items : [fallback];
-        target.innerHTML = safe.map((item) => `<li>${item}</li>`).join("");
       }
 
       async function compressImage(source) {
@@ -320,6 +459,7 @@
           img.onerror = () => reject(new Error("Rasm ochilmadi."));
           img.src = source;
         });
+
         const maxWidth = 1280;
         const scale = Math.min(1, maxWidth / image.width);
         hiddenCanvas.width = Math.round(image.width * scale);
@@ -329,6 +469,70 @@
         return hiddenCanvas.toDataURL("image/jpeg", 0.86);
       }
 
+      async function useFile(file) {
+        if (!file) {
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = async () => {
+          stopCamera();
+          state.imageDataUrl = await compressImage(reader.result);
+          showPreview(state.imageDataUrl);
+          setStatus("Rasm biriktirildi.", "success");
+        };
+        reader.readAsDataURL(file);
+      }
+
+      async function startCamera() {
+        try {
+          if (state.stream) {
+            showCamera();
+            return;
+          }
+
+          const constraints = {
+            video: {
+              facingMode: { ideal: "environment" },
+              width: { ideal: 1280 },
+              height: { ideal: 720 },
+            },
+            audio: false,
+          };
+
+          state.stream = await navigator.mediaDevices.getUserMedia(constraints);
+          cameraFeed.srcObject = state.stream;
+          showCamera();
+          hidePreview();
+          setStatus("Kamera yoqildi. Suratga olish tugmasini bosing.", "success");
+        } catch (error) {
+          setStatus("Kamera ochilmadi. Orqa kamera yoki galereya tugmasidan foydalaning.", "danger");
+        }
+      }
+
+      async function capturePhoto() {
+        if (!state.stream) {
+          await startCamera();
+          return;
+        }
+
+        hiddenCanvas.width = cameraFeed.videoWidth || 1280;
+        hiddenCanvas.height = cameraFeed.videoHeight || 720;
+        hiddenCanvas.getContext("2d").drawImage(cameraFeed, 0, 0, hiddenCanvas.width, hiddenCanvas.height);
+        state.imageDataUrl = await compressImage(hiddenCanvas.toDataURL("image/jpeg", 0.88));
+        stopCamera();
+        showPreview(state.imageDataUrl);
+        setStatus("Surat olindi va biriktirildi.", "success");
+      }
+
+      function clearImage() {
+        state.imageDataUrl = "";
+        hidePreview();
+        stopCamera();
+        document.getElementById("cameraInput").value = "";
+        document.getElementById("galleryInput").value = "";
+        setStatus("Rasm tozalandi.", "neutral");
+      }
+
       async function loadMe() {
         const response = await fetch("/api/me");
         const data = await response.json();
@@ -336,6 +540,7 @@
           window.location.href = "/login.html";
           return;
         }
+        state.user = data.user;
         userBadge.textContent = data.user.name;
       }
 
@@ -345,127 +550,85 @@
         if (!data.ok) {
           return;
         }
+
         chatList.innerHTML = "";
         if (!data.items.length) {
-          addBubble("assistant", "Salom. O'simlik bo'yicha savolingizni yuboring yoki rasm qo'shing.");
+          addBubble("assistant", "Salom. O'simlik bo'yicha savolingizni yozing yoki rasm yuboring.");
           return;
         }
-        data.items.forEach((item) => addBubble(item.role, item.text, item.createdAt));
+
+        data.items.forEach((item) => {
+          addBubble(item.role, item.text, item.createdAt, item.hasImage);
+        });
       }
 
-      async function loadAnalysisHistory() {
-        try {
-          const response = await fetch("/api/history?limit=6");
-          const data = await response.json();
-          const historyList = document.getElementById("historyList");
-          if (!data.ok || !data.items.length) {
-            historyList.innerHTML = `<div class="history-item">Hozircha tarix yo'q.</div>`;
-            return;
-          }
-          historyList.innerHTML = data.items
-            .map(
-              (item) => `
-                <div class="history-item">
-                  <strong>${item.detectedPlant || item.plantType || "Noma'lum o'simlik"}</strong>
-                  <div style="margin-top: 8px">${item.summary}</div>
-                  <div class="muted" style="margin-top: 8px">${new Date(item.createdAt).toLocaleString("uz-UZ")}</div>
-                </div>
-              `
-            )
-            .join("");
-        } catch (error) {}
-      }
-
-      imageInput.addEventListener("change", async (event) => {
-        const file = event.target.files?.[0];
-        if (!file) {
-          return;
-        }
-        const reader = new FileReader();
-        reader.onload = async () => {
-          state.imageDataUrl = await compressImage(reader.result);
-          previewImage.src = state.imageDataUrl;
-          previewImage.style.display = "block";
-          setStatus(chatStatus, "Rasm yuklandi. Endi chat yoki diagnostika yuborishingiz mumkin.", "success");
-        };
-        reader.readAsDataURL(file);
-      });
-
-      document.getElementById("clearImageBtn").addEventListener("click", () => {
-        state.imageDataUrl = "";
-        imageInput.value = "";
-        previewImage.src = "";
-        previewImage.style.display = "none";
-        setStatus(chatStatus, "Rasm tozalandi.", "neutral");
-      });
-
-      document.getElementById("sendBtn").addEventListener("click", async () => {
-        const message = document.getElementById("chatMessage").value.trim();
+      async function sendMessage() {
+        const message = chatMessage.value.trim();
         if (!message && !state.imageDataUrl) {
-          setStatus(chatStatus, "Kamida xabar yoki rasm yuboring.", "danger");
+          setStatus("Kamida savol yoki rasm yuboring.", "danger");
           return;
         }
-        setStatus(chatStatus, "AI javob tayyorlamoqda...", "warn");
+
+        setStatus("Agronom AI javob tayyorlamoqda...", "warn");
+
         try {
           const response = await fetch("/api/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message, imageDataUrl: state.imageDataUrl }),
+            body: JSON.stringify({
+              message,
+              imageDataUrl: state.imageDataUrl,
+            }),
           });
+
           const data = await response.json();
           if (!response.ok || !data.ok) {
-            throw new Error(data.error || "Chat javobi kelmadi.");
+            throw new Error(data.error || "Chat javobi olinmadi.");
           }
-          data.messages.forEach((item) => addBubble(item.role, item.text, item.createdAt));
-          document.getElementById("chatMessage").value = "";
-          setStatus(chatStatus, "Javob tayyor.", "success");
-        } catch (error) {
-          setStatus(chatStatus, error.message || "Xatolik yuz berdi.", "danger");
-        }
-      });
 
-      document.getElementById("analyzeBtn").addEventListener("click", async () => {
-        const payload = {
-          plantType: document.getElementById("plantType").value.trim(),
-          symptom: document.getElementById("symptom").value.trim(),
-          prompt: document.getElementById("diagnosisPrompt").value.trim(),
-          imageDataUrl: state.imageDataUrl,
-        };
-        if (!payload.prompt && !payload.symptom && !payload.imageDataUrl) {
-          setStatus(analysisStatus, "Kamida tavsif yoki rasm yuboring.", "danger");
-          return;
-        }
-        setStatus(analysisStatus, "Diagnostika qilinmoqda...", "warn");
-        try {
-          const response = await fetch("/api/analyze", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
+          data.messages.forEach((item) => {
+            addBubble(item.role, item.text, item.createdAt, item.hasImage);
           });
-          const data = await response.json();
-          if (!response.ok || !data.ok) {
-            throw new Error(data.error || "Diagnostika bo'lmadi.");
-          }
-          document.getElementById("analysisSummary").textContent = data.analysis.summary;
-          document.getElementById("analysisMeta").textContent =
-            `${data.analysis.detectedPlant} • ${data.analysis.condition} • ${data.analysis.confidence}%`;
-          renderList("actionsList", data.analysis.immediateActions, "Darhol qadamlar yo'q.");
-          renderList("causesList", data.analysis.possibleCauses, "Sabablar topilmadi.");
-          setStatus(analysisStatus, `Analiz tayyor. Saqlash: ${data.storage}.`, "success");
-          await loadAnalysisHistory();
+
+          chatMessage.value = "";
+          clearImage();
+          setStatus("Javob tayyor.", "success");
         } catch (error) {
-          setStatus(analysisStatus, error.message || "Xatolik yuz berdi.", "danger");
+          setStatus(error.message || "Xatolik yuz berdi.", "danger");
         }
-      });
+      }
 
-      document.getElementById("refreshHistoryBtn").addEventListener("click", loadAnalysisHistory);
-
+      document.getElementById("startCameraBtn").addEventListener("click", startCamera);
+      document.getElementById("captureBtn").addEventListener("click", capturePhoto);
+      document.getElementById("clearImageBtn").addEventListener("click", clearImage);
+      document.getElementById("sendBtn").addEventListener("click", sendMessage);
       document.getElementById("logoutBtn").addEventListener("click", async () => {
         await fetch("/api/logout", { method: "POST" });
         window.location.href = "/login.html";
       });
 
-      Promise.all([loadMe(), loadChatHistory(), loadAnalysisHistory()]).catch(() => {
+      document.getElementById("cameraInput").addEventListener("change", (event) => {
+        useFile(event.target.files?.[0]).catch(() => {
+          setStatus("Rasmni o'qib bo'lmadi.", "danger");
+        });
+      });
+
+      document.getElementById("galleryInput").addEventListener("change", (event) => {
+        useFile(event.target.files?.[0]).catch(() => {
+          setStatus("Rasmni o'qib bo'lmadi.", "danger");
+        });
+      });
+
+      chatMessage.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" && !event.shiftKey) {
+          event.preventDefault();
+          sendMessage();
+        }
+      });
+
+      window.addEventListener("beforeunload", stopCamera);
+
+      Promise.all([loadMe(), loadChatHistory()]).catch(() => {
         window.location.href = "/login.html";
       });
     </script>
