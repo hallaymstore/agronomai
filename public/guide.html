@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agronom AI Qo'llanma | Rasm olish va parvarish bo'yicha tavsiyalar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f2f6ed;
+        --surface: rgba(255, 255, 255, 0.86);
+        --ink: #143028;
+        --muted: #5a776f;
+        --line: rgba(20, 48, 40, 0.08);
+        --primary: #2f8f5b;
+        --accent: #f0a44b;
+        --shadow: 0 24px 52px rgba(20, 48, 40, 0.1);
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "IBM Plex Sans", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at top right, rgba(47, 143, 91, 0.12), transparent 24%),
+          radial-gradient(circle at bottom left, rgba(240, 164, 75, 0.14), transparent 28%),
+          linear-gradient(180deg, #f5f7f0, #edf4ea);
+      }
+      a { color: inherit; text-decoration: none; }
+      .shell { width: min(calc(100% - 28px), 1120px); margin: 0 auto; }
+      .top { padding: 28px 0 18px; }
+      .top-row, .grid, .footer { display: grid; gap: 18px; }
+      .top-row { grid-template-columns: auto auto; justify-content: space-between; align-items: center; }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 700;
+      }
+      .brand-mark, .btn {
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+      }
+      .brand-mark {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        color: #fff;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+      }
+      .btn {
+        padding: 13px 20px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+        font-weight: 600;
+      }
+      .hero, .section, footer { padding: 18px 0 28px; }
+      .card {
+        background: var(--surface);
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(255, 255, 255, 0.56);
+        box-shadow: var(--shadow);
+        border-radius: 28px;
+        padding: 28px;
+      }
+      h1, h2, h3 { margin: 0; font-family: "Space Grotesk", sans-serif; line-height: 1.04; }
+      h1 { font-size: clamp(2rem, 4vw, 4rem); letter-spacing: -0.05em; }
+      p, li { color: var(--muted); line-height: 1.7; }
+      .highlight {
+        margin-top: 20px;
+        padding: 18px;
+        border-radius: 22px;
+        background: linear-gradient(145deg, rgba(47, 143, 91, 0.14), rgba(240, 164, 75, 0.14));
+      }
+      .steps { display: grid; gap: 14px; margin-top: 18px; }
+      .step {
+        padding: 18px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.76);
+        border: 1px solid var(--line);
+      }
+      .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+      .chip {
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(20, 48, 40, 0.06);
+        font-size: 0.92rem;
+      }
+      @media (max-width: 840px) {
+        .grid { grid-template-columns: 1fr; }
+        .top-row { grid-template-columns: 1fr; justify-items: start; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <div class="shell top-row">
+        <a class="brand" href="/index.html">
+          <span class="brand-mark">AI</span>
+          <span>Agronom AI</span>
+        </a>
+        <a class="btn" href="/chat.html">AI Chatga o'tish</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="shell card">
+          <h1>Rasmni qanday olish va AI tavsiyasidan qanday foydalanish kerak?</h1>
+          <p>
+            Bu sahifa Agronom AI'dan maksimal foyda olish uchun qisqa, lekin amaliy qo'llanma.
+            Kamera sifati, rakurs va savol sifati natijaga sezilarli ta'sir qiladi.
+          </p>
+          <div class="grid" style="margin-top: 18px">
+            <div class="highlight">
+              <h3>1. Rasm sifati muhim</h3>
+              <p>Bargdagi dog', sarg'ayish yoki qurish belgisi aniq ko'rinishi kerak. Iloji bo'lsa tabiiy yorug'likda surat oling.</p>
+            </div>
+            <div class="highlight">
+              <h3>2. Muammoni yozib bering</h3>
+              <p>"Qachondan beri", "qancha sug'orilgan", "qaerda turgan" kabi kontekst yozilsa, AI javobi foydaliroq bo'ladi.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="shell grid">
+          <article class="card">
+            <h2>Eng yaxshi natija uchun 4 qadam</h2>
+            <div class="steps">
+              <div class="step"><strong>1. Bargga yaqin boring</strong> Muammo joyi kadr markazida bo'lsin. Juda uzoq masofa AI uchun detallarni yo'qotadi.</div>
+              <div class="step"><strong>2. Sog'lom qismni ham kiriting</strong> Zararlangan va sog'lom barg bir kadrda bo'lsa, taqqoslash yaxshilanadi.</div>
+              <div class="step"><strong>3. Belgini qisqa yozing</strong> Masalan: "Pomidor ko'chati bargida oq dog' va sarg'ayish bor."</div>
+              <div class="step"><strong>4. Tavsiyani monitoring qiling</strong> Bir haftalik reja bo'yicha kuzatib, kerak bo'lsa yangi rasm bilan qayta tahlil qiling.</div>
+            </div>
+          </article>
+
+          <article class="card">
+            <h2>AI javobini qanday o'qish kerak</h2>
+            <ul>
+              <li><strong>Summary:</strong> umumiy xulosa va eng muhim signal.</li>
+              <li><strong>Condition:</strong> taxminiy muammo yoki holat.</li>
+              <li><strong>Immediate actions:</strong> hozir qilish kerak bo'lgan amaliy qadamlar.</li>
+              <li><strong>Weekly care:</strong> keyingi bir hafta uchun monitoring rejasi.</li>
+              <li><strong>When to escalate:</strong> qachon agronom yoki fitopatolog kerak bo'lishi.</li>
+            </ul>
+            <div class="chips">
+              <span class="chip">Sug'orish rejasi</span>
+              <span class="chip">Yorug'lik bahosi</span>
+              <span class="chip">O'g'it tavsiyasi</span>
+              <span class="chip">Profilaktika</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="shell grid">
+          <article class="card">
+            <h2>Qaysi belgilarni yuborish foydali?</h2>
+            <ul>
+              <li>Barg sarg'ayishi yoki oqarishi</li>
+              <li>Barg uchi qurishi yoki kuyishi</li>
+              <li>Qora, jigarrang yoki oq dog'lar</li>
+              <li>Chirish, so'lish yoki osilib qolish</li>
+              <li>Hasharot izi, teshik, yopishqoq qatlam</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h2>Muhim eslatma</h2>
+            <p>
+              Agronom AI dastlabki, tezkor baho beradi. Agar zararlanish kuchli bo'lsa, o'simlik tez yomonlashayotgan bo'lsa
+              yoki katta maydon shikastlangan bo'lsa, albatta mutaxassis ko'rigidan foydalaning.
+            </p>
+            <div class="chips">
+              <span class="chip">Taxminiy AI tahlil</span>
+              <span class="chip">Mutaxassis maslahatini almashtirmaydi</span>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell footer">
+        <div>Agronom AI qo'llanma sahifasi</div>
+        <div>Kamera, Groq vision va parvarish tavsiyalari uchun tayyorlangan</div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agronom AI | Landing Page</title>
+    <meta
+      name="description"
+      content="Agronom AI o'simlik parvarishi uchun sun'iy intellekt platformasi. Login, register va alohida AI chat sahifasi bilan."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f5f4eb;
+        --surface: rgba(255, 255, 255, 0.84);
+        --ink: #143028;
+        --muted: #5d756e;
+        --line: rgba(20, 48, 40, 0.09);
+        --primary: #2f8f5b;
+        --primary-deep: #1f6841;
+        --accent: #efaa58;
+        --shadow: 0 24px 60px rgba(19, 43, 35, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "IBM Plex Sans", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at top left, rgba(47, 143, 91, 0.16), transparent 24%),
+          radial-gradient(circle at bottom right, rgba(239, 170, 88, 0.14), transparent 28%),
+          linear-gradient(180deg, #f7f5ed, #eef4ea 56%, #f7f5ed);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .shell {
+        width: min(calc(100% - 24px), 1160px);
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(16px);
+        background: rgba(245, 244, 235, 0.82);
+        border-bottom: 1px solid rgba(20, 48, 40, 0.06);
+      }
+
+      .nav,
+      .hero-grid,
+      .feature-grid,
+      .double-grid,
+      .stat-grid {
+        display: grid;
+        gap: 18px;
+      }
+
+      .nav {
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        padding: 18px 0;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 700;
+      }
+
+      .brand-mark {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        color: #fff;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        box-shadow: 0 14px 28px rgba(47, 143, 91, 0.24);
+      }
+
+      .nav-links,
+      .cta-row,
+      .chip-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .nav-links {
+        justify-content: center;
+        color: var(--muted);
+      }
+
+      .btn {
+        border: 0;
+        border-radius: 999px;
+        padding: 14px 22px;
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .btn-primary {
+        color: #fff;
+        background: linear-gradient(135deg, var(--primary), #3da06b);
+        box-shadow: 0 16px 34px rgba(47, 143, 91, 0.22);
+      }
+
+      .btn-secondary {
+        color: var(--ink);
+        background: rgba(255, 255, 255, 0.78);
+        border: 1px solid var(--line);
+      }
+
+      section {
+        padding: 26px 0;
+      }
+
+      .hero-grid,
+      .double-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .card {
+        background: var(--surface);
+        border: 1px solid rgba(255, 255, 255, 0.56);
+        box-shadow: var(--shadow);
+        border-radius: 30px;
+        backdrop-filter: blur(16px);
+        padding: 28px;
+      }
+
+      .hero-copy {
+        padding: 36px;
+      }
+
+      .eyebrow,
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(20, 48, 40, 0.06);
+        font-size: 0.92rem;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        font-family: "Space Grotesk", sans-serif;
+        line-height: 1.04;
+      }
+
+      h1 {
+        font-size: clamp(2.5rem, 5vw, 5rem);
+        letter-spacing: -0.05em;
+      }
+
+      p {
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .hero-visual {
+        min-height: 420px;
+        position: relative;
+        overflow: hidden;
+        background:
+          linear-gradient(180deg, rgba(20, 48, 40, 0.08), rgba(20, 48, 40, 0.22)),
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='560' viewBox='0 0 800 560'%3E%3Crect width='800' height='560' fill='%23deedd9'/%3E%3Cpath d='M75 470c80-153 206-245 373-275 125-22 228 25 321 130-113 24-186 79-241 145H75Z' fill='%2397cb91'/%3E%3Cpath d='M238 173c49 13 84 52 104 119 13 44 47 79 102 101-86 28-147 6-187-67-18-34-24-83-19-153Z' fill='%234fa966'/%3E%3Ccircle cx='604' cy='121' r='60' fill='%23efaa58'/%3E%3C/svg%3E")
+            center/cover no-repeat;
+      }
+
+      .floating {
+        position: absolute;
+        right: 18px;
+        bottom: 18px;
+        max-width: 260px;
+        padding: 18px;
+        border-radius: 24px;
+        background: rgba(20, 48, 40, 0.86);
+        color: #fff;
+      }
+
+      .floating p {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .stat-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin-top: 22px;
+      }
+
+      .stat,
+      .mini-card {
+        padding: 18px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.8);
+        border: 1px solid var(--line);
+      }
+
+      .stat strong {
+        display: block;
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 1.5rem;
+      }
+
+      .contact-form {
+        display: grid;
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .field,
+      .textarea {
+        width: 100%;
+        border-radius: 16px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.84);
+        padding: 14px 16px;
+        font: inherit;
+        color: var(--ink);
+      }
+
+      .textarea {
+        min-height: 140px;
+        resize: vertical;
+      }
+
+      .status {
+        margin-top: 16px;
+        padding: 14px 16px;
+        border-radius: 18px;
+        background: rgba(20, 48, 40, 0.05);
+      }
+
+      footer {
+        padding: 28px 0 42px;
+        color: var(--muted);
+      }
+
+      .footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 12px;
+        padding-top: 18px;
+        border-top: 1px solid rgba(20, 48, 40, 0.08);
+      }
+
+      @media (max-width: 980px) {
+        .hero-grid,
+        .feature-grid,
+        .double-grid,
+        .stat-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .nav {
+          grid-template-columns: auto auto;
+        }
+
+        .nav-links {
+          display: none;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .hero-copy,
+        .card {
+          padding: 22px;
+          border-radius: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="shell nav">
+        <a class="brand" href="/">
+          <span class="brand-mark">AI</span>
+          <span>Agronom AI</span>
+        </a>
+        <nav class="nav-links">
+          <a href="#features">Imkoniyatlar</a>
+          <a href="#workflow">Jarayon</a>
+          <a href="/guide.html">Qo'llanma</a>
+        </nav>
+        <div class="cta-row">
+          <a class="btn btn-secondary" href="/login.html">Login</a>
+          <a class="btn btn-primary" href="/register.html">Register</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <div class="shell hero-grid">
+          <article class="card hero-copy">
+            <div class="eyebrow">AI agronom yordamchi • Login + Chat workflow</div>
+            <h1>O'simlik parvarishi uchun tezkor AI platforma.</h1>
+            <p>
+              Agronom AI yordamida foydalanuvchi ro'yxatdan o'tadi, tizimga kiradi va
+              alohida chat sahifasida matn yoki rasm yuborib o'simlik holatini tahlil qiladi.
+            </p>
+            <div class="cta-row" style="margin-top: 18px">
+              <a class="btn btn-primary" id="primaryCta" href="/register.html">Boshlash</a>
+              <a class="btn btn-secondary" href="/chat.html">AI Chat</a>
+              <a class="btn btn-secondary" href="/guide.html">Qo'llanma</a>
+            </div>
+            <div class="stat-grid">
+              <div class="stat">
+                <strong>Vision</strong>
+                <span>Rasm asosida AI tavsiya</span>
+              </div>
+              <div class="stat">
+                <strong>Auth</strong>
+                <span>Register va login oqimi</span>
+              </div>
+              <div class="stat">
+                <strong>History</strong>
+                <span>Foydalanuvchi bo'yicha saqlash</span>
+              </div>
+            </div>
+          </article>
+
+          <aside class="card hero-visual">
+            <div class="floating">
+              <strong>Landing + Chat arxitekturasi</strong>
+              <p>
+                Landing page marketing va tanishtirish uchun, chat sahifasi esa real AI
+                ishlashi uchun alohida ajratildi.
+              </p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="features">
+        <div class="shell">
+          <div class="feature-grid">
+            <article class="card">
+              <h3>Alohida AI chat</h3>
+              <p>Chat sahifasi login qilingan foydalanuvchi uchun ochiladi va tarixni o'ziga bog'laydi.</p>
+            </article>
+            <article class="card">
+              <h3>Rasm + matn analizi</h3>
+              <p>Kamera yoki fayl orqali yuborilgan rasm Groq multimodal API yordamida ko'rib chiqiladi.</p>
+            </article>
+            <article class="card">
+              <h3>Mobile responsive</h3>
+              <p>Landing, auth va chat sahifalari telefon ekranlarida ham qulay ishlashi uchun moslangan.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="workflow">
+        <div class="shell double-grid">
+          <article class="card">
+            <h2>Foydalanish jarayoni</h2>
+            <div class="chip-row" style="margin-top: 16px">
+              <span class="chip">1. Register</span>
+              <span class="chip">2. Login</span>
+              <span class="chip">3. Chat</span>
+              <span class="chip">4. Diagnostika</span>
+            </div>
+            <p style="margin-top: 18px">
+              Foydalanuvchi akkaunt ochadi, tizimga kiradi va `chat.html` sahifasida savol
+              yoki rasm yuboradi. Server foydalanuvchini session cookie orqali tanib,
+              tarixni xavfsiz saqlaydi.
+            </p>
+          </article>
+
+          <article class="card">
+            <h2>Loyiha uchun bog'lanish</h2>
+            <p>Issiqxona, ferma yoki servis uchun moslashtirish kerak bo'lsa, xabar qoldiring.</p>
+            <form id="contactForm" class="contact-form">
+              <input id="contactName" class="field" placeholder="Ismingiz" />
+              <input id="contactPhone" class="field" placeholder="Telefon yoki Telegram" />
+              <textarea id="contactMessage" class="textarea" placeholder="Qanday ehtiyojingiz bor?"></textarea>
+              <button class="btn btn-primary" type="submit">Xabar yuborish</button>
+            </form>
+            <div id="statusBox" class="status">Tizim holati tekshirilmoqda...</div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell footer">
+        <div>Agronom AI landing page</div>
+        <div>Node.js • Groq API • MongoDB ready</div>
+      </div>
+    </footer>
+
+    <script>
+      const statusBox = document.getElementById("statusBox");
+      const contactForm = document.getElementById("contactForm");
+      const primaryCta = document.getElementById("primaryCta");
+
+      function setStatus(text, tone = "neutral") {
+        const colors = {
+          neutral: "rgba(20, 48, 40, 0.05)",
+          success: "rgba(79, 186, 111, 0.14)",
+          danger: "rgba(217, 100, 74, 0.14)",
+        };
+        statusBox.textContent = text;
+        statusBox.style.background = colors[tone] || colors.neutral;
+      }
+
+      async function loadHealth() {
+        try {
+          const [healthResponse, meResponse] = await Promise.all([
+            fetch("/api/health"),
+            fetch("/api/me"),
+          ]);
+          const health = await healthResponse.json();
+          const me = await meResponse.json();
+          setStatus(
+            `Groq: ${health.groqConfigured ? "ulangan" : "kalit kiritilmagan"} | MongoDB: ${
+              health.mongoEnabled ? "aktiv" : "fallback"
+            }`,
+            "neutral"
+          );
+          if (me.authenticated) {
+            primaryCta.textContent = "Chatga o'tish";
+            primaryCta.href = "/chat.html";
+          }
+        } catch (error) {
+          setStatus("Server holatini olib bo'lmadi.", "danger");
+        }
+      }
+
+      contactForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const payload = {
+          name: document.getElementById("contactName").value.trim(),
+          phone: document.getElementById("contactPhone").value.trim(),
+          message: document.getElementById("contactMessage").value.trim(),
+        };
+
+        if (!payload.name || !payload.phone || !payload.message) {
+          setStatus("Barcha maydonlarni to'ldiring.", "danger");
+          return;
+        }
+
+        try {
+          const response = await fetch("/api/contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          const data = await response.json();
+          if (!response.ok || !data.ok) {
+            throw new Error(data.error || "Xabar yuborilmadi.");
+          }
+          contactForm.reset();
+          setStatus(data.message, "success");
+        } catch (error) {
+          setStatus(error.message || "Xatolik yuz berdi.", "danger");
+        }
+      });
+
+      loadHealth();
+    </script>
+  </body>
+</html>

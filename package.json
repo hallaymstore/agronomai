@@ -1,0 +1,12 @@
+{
+  "name": "agronom-ai",
+  "version": "1.0.0",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "mongodb": "^6.17.0"
+  }
+}
